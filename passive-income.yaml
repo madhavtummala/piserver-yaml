@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+
+  # has earnapp, honeygain, traffic monetizer 
+  picash:
+    image: chashtag/picash
+    container_name: picash
+    env_file:
+      - config/picash/settings.conf
+      - .env
+    network_mode: host
+
+  # packet stream
+  psclient:
+    image: packetstream/psclient:latest
+    container_name: psclient
+    environment:
+      - CID=${PS_ID}
+    restart: unless-stopped
+
+  # pawns app (formerly iproyals)
+  pawns-cli:
+    image: iproyal/pawns-cli:latest
+    container_name: pawns-cli
+    command: "-email=${PA_EMAIL} -password=${PA_PASSWORD} -device-name=raspberrypi -device-id=raspberrypi1 -accept-tos"
+    restart: unless-stopped
+
+  # has bitping, (unofficial bitpingd instead of bitping-node) 
+  bitping:
+    container_name: bitping
+    image: mrcolorrain/bitping
+    environment:
+      - BITPING_EMAIL=${BP_EMAIL}
+      - BITPING_PASSWD=${BP_PASSWORD}
+    volumes:
+      - ${BASE_ROOT}/config/bitping/:/root/.bitpingd
+    restart: unless-stopped
+

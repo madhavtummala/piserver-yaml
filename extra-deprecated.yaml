@@ -1,0 +1,108 @@
+version: "3.9"
+services:
+
+  # when downloads are complete, they move from deluge 
+  # to transmission to seed forever
+  transmission:
+    container_name: transmission
+    image: linuxserver/transmission
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/transmission:/config
+      - ${DATA_ROOT}/seedbox/seeding/torrents:/watch
+      - ${DATA_ROOT}:/media
+
+  # plex server organises and provides a ui for the movies and tv series
+  plex-server:
+    container_name: plex
+    image: lscr.io/linuxserver/plex
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/plex/db:/config
+      - ${DATA_ROOT}:/media
+
+  # sync watched plex and trakt two way
+  trakt-sync:
+    image: ghcr.io/taxel/plextraktsync
+    container_name: trakt-sync
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/trakt:/app/config
+    network_mode: host
+    restart: unless-stopped
+    entrypoint: "/bin/sh /app/config/sync.sh"
+    depends_on:
+      - plex-server
+
+  # scrobble to trakt
+  trakt-scrobble:
+    image: ghcr.io/taxel/plextraktsync
+    container_name: trakt-scrobble
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/trakt:/app/config
+    network_mode: host
+    restart: unless-stopped
+    command: "watch"
+    depends_on:
+      - plex-server
+
+  # telegram bot to tag and search docs
+  tiendadoc:
+    image: ghcr.io/madhavtummala/tiendadoc
+    container_name: tiendadoc
+    environment:
+      - BOT_TOKEN=5089613593:AAGNMrvP_-aYQJmFTd-mlNELyrVMDwA9e9s
+      - CHAT_FILTER=905295167,-473510067
+    volumes:
+      - ${BASE_ROOT}/config/tiendadoc:/usr/app/config
+    restart: unless-stopped
+  
+  # to automatically update the containers
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+
+  # sync Arrakis (IITBBS encrypted) to Landsraad (IITBBS)
+  drive_sync:
+    container_name: rclone
+    image: rclone/rclone
+    volumes:
+      - ${BASE_ROOT}/config/rclone:/config/rclone
+      - ${DATA_ROOT}:/data
+    restart: unless-stopped
+    entrypoint: "/bin/sh /config/rclone/sync.sh"
+
+  # samba client for offline cache browsing
+  samba:
+    container_name: samba
+    image: dperson/samba
+    volumes:
+      - ${DATA_ROOT}/MOVIES:/movies
+      - ${DATA_ROOT}/TV:/tv
+    restart: on-failure
+    network_mode: host
+    command: '-s "movies;/movies" -s "tv;/tv" -u "dune;dune" -p'
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+

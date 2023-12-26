@@ -1,0 +1,141 @@
+version: "3.9"
+services:
+
+  # vpn provides a network connection for jackett container
+  # vpn auth file and openvpn file (from proton-vpn) are saved in config
+  vpn:
+    container_name: vpn
+    image: dperson/openvpn-client
+    cap_add:
+      - net_admin
+    dns:
+      - 8.8.4.4
+      - 8.8.8.8
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+    volumes:
+      - /dev/net:/dev/net:z
+      - ${BASE_ROOT}/config/vpn:/vpn #manual setup: include your config
+    security_opt:
+      - label:disable
+
+  # jackett connects to torrent websites to search for torrents
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
+    restart: unless-stopped
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DATA_ROOT}/seedbox/torrent-blackhole:/downloads #manual directories
+      - ${BASE_ROOT}/config/jackett:/config
+    depends_on:
+      - vpn
+
+  # sonarr uses jackett to organise tv show downloads and quality
+  sonarr:
+    container_name: sonarr
+    image: linuxserver/sonarr
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${BASE_ROOT}/config/sonarr:/config
+      - ${DATA_ROOT}:/media
+      - ${DATA_ROOT}/seedbox:/downloads
+
+  # radarr uses jackett to organise movie downloads and quality
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${BASE_ROOT}/config/radarr:/config
+      - ${DATA_ROOT}:/media
+      - ${DATA_ROOT}/seedbox:/downloads
+
+  # deluge is the torrent client used by radarr and sonarr 
+  # for actually downloading the torrents
+  deluge:
+    container_name: deluge
+    image: linuxserver/deluge
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_ROOT}/seedbox:/downloads
+      - ${BASE_ROOT}/config/deluge:/config
+
+  # telegram bot is user facing for movie / series requests
+  telegram_bot:
+    container_name: searcharr
+    image: toddrob/searcharr
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/searcharr/settings.py:/app/settings.py #manual setup
+
+  # linker creates soft links for plex and transmission, 
+  # also creates a torrent backup
+  linker:
+    container_name: linker
+    image: madhavtummala/linker
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/linker:/config
+      - ${DATA_ROOT}:/media
+    entrypoint: "python /config/linker.py"
+
+  # file browser as scp alternative and browsing ui
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${DATA_ROOT}:/data
+      - ${BASE_ROOT}/config/filebrowser/filebrowser.db:/database.db
+      - ${BASE_ROOT}/config/filebrowser/.filebrowser.json:/.filebrowser.json
+    network_mode: host
+    restart: unless-stopped
+
+  # a completely open source alternative to plex
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin
+    container_name: jellyfin
+    mem_limit: "2048M"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/jellyfin:/config
+      - ${DATA_ROOT}:/data
+    network_mode: host
+    restart: unless-stopped
+

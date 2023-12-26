@@ -1,0 +1,41 @@
+include:
+  - media-server.yaml
+  - immich-server.yaml
+
+services:
+
+  # pihole is a local dns server that can block traffic
+  # to cdn's that load advertisements
+  pihole:
+    container_name: pihole
+    image: pihole/pihole
+    network_mode: host
+    environment:
+      - TZ=${TZ}
+      - WEBPASSWORD=dune
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - DNSMASQ_USER=root
+      - PIHOLE_UID=0
+    volumes:
+      - ${BASE_ROOT}/config/pihole/etc-pihole:/etc/pihole
+      - ${BASE_ROOT}/config/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  # since expose my server to the internet, this one is for hackers
+  endlessh:
+    image: lscr.io/linuxserver/endlessh
+    container_name: endlessh
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_ROOT}/config/endlessh:/config
+    ports:
+      - 22:2222
+    restart: unless-stopped
+
+
