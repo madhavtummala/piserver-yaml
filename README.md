@@ -68,6 +68,14 @@ UUID=YYYYYYYYYYYYY /mnt/seagate ntfs-3g async,nobootwait,big_writes,noatime,nodi
 ```
 If you have a bigger array of disks, use `snapRAID` as well
 
+### Start the containers
+Fill the values for .env
+```
+mv example.env .env
+docker-compose up -d
+docker-compose -f passive-income.yaml up -d
+```
+
 ### Overclock to upto 2.147GHz
 ```bash
 sudo apt install neofetch gparted
