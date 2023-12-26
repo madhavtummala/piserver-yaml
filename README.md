@@ -51,7 +51,14 @@
 
 ### Install Docker-Compose (latest version) - [Instructions](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
-### Install Tailscale (vpn, remote access) - [Instructions](https://tailscale.com/kb/1031/install-linux)
+### Setup remote access
+
+If its just you going to use this entire system, using [Tailscale](https://tailscale.com) seems easiest. After installing the clients on all your devices, you will have a static ip assigned to your raspi and can access it from any device.  
+
+#### If you have a public server (oracle cloud was life time free)
+If you want the system to be available for more than one user, but don't want to deal with the google authentication - you can use zerotier or the open source branch of tailscale - [Headscale](https://github.com/juanfont/headscale). 
+
+Instead if you don't want to bother with installing clients on each user, you can setup tailscale for connecting the public server and your raspi. And then setup nginx reverse proxy on the public server for a more seamless forwarding of requests for anyone.
 
 ###  Setup MergerFS / Mounts - etc/fstab
 apt-get install ntfs-3g, try nfs3 (in-kernel) if you can
