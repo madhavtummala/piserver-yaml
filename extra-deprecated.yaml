@@ -68,7 +68,7 @@ services:
     image: ghcr.io/madhavtummala/tiendadoc
     container_name: tiendadoc
     environment:
-      - BOT_TOKEN=5089613593:AAGNMrvP_-aYQJmFTd-mlNELyrVMDwA9e9s
+      - BOT_TOKEN=${TELEGRAM_API_TOKEN}
       - CHAT_FILTER=905295167,-473510067
     volumes:
       - ${BASE_ROOT}/config/tiendadoc:/usr/app/config

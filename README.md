@@ -1,50 +1,117 @@
-#  <img src="https://assets.stickpng.com/images/584830fecef1014c0b5e4aa2.png" alt="Raspberry Pi Logo" width="20px"> PiServer <img src="https://assets.stickpng.com/images/584830fecef1014c0b5e4aa2.png" alt="Raspberry Pi Logo" width="20px">
+#  <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px"> PiServer <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px">
 
-| Container Name           | Image                                             | Description                                      |
-|--------------------------|---------------------------------------------------|--------------------------------------------------|
+| Container Name           | Image                                             | Description                                      | Project Link                                  |
+|--------------------------|---------------------------------------------------|--------------------------------------------------|-----------------------------------------------|
 | **Essentials** |
-| pihole                   | pihole/pihole                                     | Local DNS server that can block ad traffic        |
-| endlessh                 | lscr.io/linuxserver/endlessh                      | Honeypot for hackers on port 2222                 |
+| [pihole/pihole](https://github.com/pi-hole/pi-hole)                   | pihole/pihole                                     | Local DNS server that can block ad traffic        |
+| [LinuxServer/endlessh](https://github.com/linuxserver/docker-endlessh)                 | lscr.io/linuxserver/endlessh                      | Honeypot for hackers on port 2222                 |
 | **Media Server** |
-| vpn                      | dperson/openvpn-client                            | Provides network connection for Jackett           |
-| jackett                  | linuxserver/jackett                                | Connects to torrent websites to search for torrents|
-| sonarr                   | linuxserver/sonarr                                 | Organizes TV show downloads using Jackett         |
-| radarr                   | linuxserver/radarr                                 | Organizes movie downloads using Jackett           |
-| deluge                   | linuxserver/deluge                                 | Torrent client used by Radarr and Sonarr          |
-| telegram_bot             | toddrob/searcharr                                  | User-facing bot for movie/series requests         |
-| linker                   | madhavtummala/linker                               | Creates soft links for Plex and Transmission      |
-| filebrowser              | filebrowser/filebrowser                            | SCP alternative and browsing UI                   |
-| jellyfin                 | lscr.io/linuxserver/jellyfin                      | Open-source alternative to Plex                   |
+| [dperson/openvpn-client](https://github.com/dperson/openvpn-client)                      | dperson/openvpn-client                            | Provides network connection for Jackett           |
+| [LinuxServer/docker-jackett](https://github.com/linuxserver/docker-jackett)               | linuxserver/jackett                                | Connects to torrent websites to search for torrents|
+| [LinuxServer/docker-sonarr](https://github.com/linuxserver/docker-sonarr)                 | linuxserver/sonarr                                 | Organizes TV show downloads using Jackett         |
+| [LinuxServer/docker-radarr](https://github.com/linuxserver/docker-radarr)                 | linuxserver/radarr                                 | Organizes movie downloads using Jackett           |
+| [LinuxServer/docker-deluge](https://github.com/linuxserver/docker-deluge)                 | linuxserver/deluge                                 | Torrent client used by Radarr and Sonarr          |
+| [toddrob/searcharr](https://github.com/toddrob/searcharr)                              | toddrob/searcharr                                  | User-facing bot for movie/series requests         |
+| [madhavtummala/linker](https://github.com/madhavtummala/docker-linker)                 | madhavtummala/linker                               | Creates soft links for Plex and Transmission      |
+| [filebrowser/filebrowser](https://github.com/filebrowser/filebrowser)                | filebrowser/filebrowser                            | SCP alternative and browsing UI                   |
+| [LinuxServer/docker-jellyfin](https://github.com/linuxserver/docker-jellyfin)             | lscr.io/linuxserver/jellyfin                      | Open-source alternative to Plex                   |
 | **Immich Service** |
-| immich-server            | ghcr.io/immich-app/immich-server                  | Main server for Immich application                |
-| immich-microservices     | ghcr.io/immich-app/immich-server                  | Microservices for Immich application             |
-| immich-machine-learning  | ghcr.io/immich-app/immich-machine-learning        | Machine learning component for Immich             |
-| redis                    | redis:6.2-alpine                                   | Redis service for caching                         |
-| database                 | tensorchord/pgvecto-rs:pg14-v0.1.11                | PostgreSQL database for Immich                    |
+| [immich-app/immich-server](https://github.com/immich-app/immich)                | ghcr.io/immich-app/immich-server                  | Main server for Immich application                |
+| [immich-app/immich-server](https://github.com/immich-app/immich)                | ghcr.io/immich-app/immich-server                  | Microservices for Immich application             |
+| [immich-app/immich-machine-learning](https://github.com/immich-app/immich-machine-learning) | ghcr.io/immich-app/immich-machine-learning        | Machine learning component for Immich             |
+| [Redis](https://redis.io/)                                                       | redis:6.2-alpine                                   | Redis service for caching                         |
+| [tensorchord/pgvecto-rs](https://github.com/tensorchord/pgvecto-rs)                  | tensorchord/pgvecto-rs:pg14-v0.1.11                | PostgreSQL database for Immich                    |
 | **Passive Income** |
-| picash                   | chashtag/picash                                   | Manages earnapp, honeygain, and traffic monetizer |
-| psclient                 | packetstream/psclient:latest                      | Packet Stream client for network sharing          |
-| pawns-cli                | iproyal/pawns-cli:latest                          | Pawns app (formerly iproyals) CLI                |
-| bitping                  | mrcolorrain/bitping                               | Bitping with unofficial bitpingd instead of bitping-node |
-| **Extra** |
-| transmission             | linuxserver/transmission                           | Handles seeding completed downloads from Deluge   |
-| plex-server              | lscr.io/linuxserver/plex                           | Plex server for organizing and providing a UI     |
-| trakt-sync               | ghcr.io/taxel/plextraktsync                       | Syncs watched content between Plex and Trakt     |
-| trakt-scrobble           | ghcr.io/taxel/plextraktsync                       | Scrobbles watched content from Plex to Trakt     |
-| tiendadoc                | ghcr.io/madhavtummala/tiendadoc                   | Telegram bot for tagging and searching documents  |
-| watchtower               | containrrr/watchtower                             | Automatically updates Docker containers          |
-| drive_sync               | rclone/rclone                                     | Syncs encrypted Arrakis to Landsraad (IITBBS)     |
-| samba                    | dperson/samba                                     | Samba client for offline cache browsing           |
-| aria2-pro                | p3terx/aria2-pro                                  | Aria2 with web interface for managing downloads  |
-| ariang                   | p3terx/ariang                                     | Web-based frontend for Aria2                     |
-
-## Setup
-
-### Install Ubuntu Server 20.04 (arm64) - [Instructions](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview)
+| [chashtag/picash](https://github.com/chashtag/picash)                               | chashtag/picash                                   | Manages earnapp, honeygain, and traffic monetizer |
+| [packetstream/psclient](https://github.com/packetstream/psclient)                    | packetstream/psclient:latest                      | Packet Stream client for network sharing          |
+| [iproyal/pawns-cli](https://github.com/iproyal/pawns-cli)                           | iproyal/pawns-cli:latest                          | Pawns app (formerly iproyals) CLI                |
+| [mrcolorrain/bitping](https://github.com/mrcolorrain/bitping)                        | mrcolorrain/bitping                               | Bitping with unofficial bitpingd instead of bitping-node |
+| **Extra / Misscellaneous** |
+| [LinuxServer/docker-transmission](https://github.com/linuxserver/docker-transmission) | linuxserver/transmission                           | Handles seeding completed downloads from Deluge   |
+| [LinuxServer/docker-plex](https://github.com/linuxserver/docker-plex)                 | lscr.io/linuxserver/plex                           | Plex server for organizing and providing a UI     |
+| [taxel/plextraktsync](https://github.com/taxel/plextraktsync)                        | ghcr.io/taxel/plextraktsync                       | Syncs watched content between Plex and Trakt     |
+| [taxel/plextraktsync](https://github.com/taxel/plextraktsync)                        | ghcr.io/taxel/plextraktsync                       | Scrobbles watched content from Plex to Trakt     |
+| [ghcr.io/madhavtummala/tiendadoc](https://github.com/madhavtummala/tiendadoc)                | ghcr.io/madhavtummala/tiendadoc                   | Telegram bot for tagging and searching documents  |
+| [containrrr/watchtower](https://github.com/containrrr/watchtower)                      | containrrr/watchtower                             | Automatically updates Docker containers          |
+| [rclone/rclone](https://github.com/rclone/rclone)                                  | rclone/rclone                                     | Syncs encrypted Arrakis to Landsraad (IITBBS)     |
+| [dperson/samba](https://github.com/dperson/samba)                                  | dperson/samba                                     | Samba client for offline cache browsing           |
+| [p3terx/aria2-pro](https://github.com/P3TERX/Aria2-Pro-Docker)                       | p3terx/aria2-pro                                  | Aria2 with web interface for managing downloads  |
+| [p3terx/ariang](https://github.com/P3TERX/Aria2-Pro-Docker)                           | p3terx/ariang                                     | Aria2 backend                   |
 
 
+### Setup
 
-### static ip
+#### Install Ubuntu Server 20.04 (arm64) - [Instructions](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview)
+
+####  Mounts - etc/fstab
+apt-get install ntfs-3g, try nfs3 (in-kernel) if you can
+```
+sudo blkid (get UUID)
+```
+fstab entries
+```
+UUID=XXXXXXXXXXXXX /mnt/passport ntfs-3g async,nobootwait,big_writes,noatime,nodiratime,nofail,umask=007,uid=1000,gid=1003 0 0
+
+UUID=YYYYYYYYYYYYY /mnt/seagate ntfs-3g async,nobootwait,big_writes,noatime,nodiratime,nofail,umask=007,uid=1000,gid=1003 0 0
+
+/mnt/passport:/mnt/seagate /mnt/data fuse.mergerfs direct_io,defaults,allow_other,minfreespace=50G,fsname=mergerfs,cache.files=partial,dropcacheonclose=true,category.create=mfs 0 0
+```
+If you have a bigger array of disks, use `snapRAID` as well
+
+#### Overclock to upto 2.147GHz
+```bash
+sudo apt install neofetch gparted
+snap install rpi-imager
+```
+/boot/firmware/config.txt
+```
+over_voltage=6
+arm_freq=2147
+gpu_freq=700
+v3d_freq=750
+```
+
+
+### Common Tips
+
+#### Powered USB with Raspi
+Buy only from list [here](https://elinux.org/RPi_Powered_USB_Hubs). If not, cut the red wire (5v) of the usb hub wire that connects to raspi port to prevent backflow.
+
+#### rclone mounts (from gdrive) with a cache on hdds
+```
+[Unit]
+Description=Landsraad Movies
+After=network-online.target mnt-seagate.mount
+Requires=network-online.target mnt-seagate.mount
+
+[Service]
+Type=notify
+ExecStart= \
+/usr/bin/rclone mount \
+    --config=/home/ubuntu/dune/config/rclone/rclone.conf \
+    --dir-cache-time 30m \
+    --vfs-cache-mode full \
+    --cache-dir /mnt/seagate/cache1 \
+    --vfs-cache-max-size 1000G \
+    --vfs-write-back 30m \
+    --vfs-cache-max-age 720h \
+    --log-level INFO \
+    --log-file /home/ubuntu/dune/config/rclone/movies.log \
+    --allow-other \
+    --allow-non-empty \
+    --vfs-read-ahead 256M \
+    --uid 1000 \
+    --gid 1000 \
+    arrakis:MOVIES /mnt/seagate/MOVIES
+ExecStop=/bin/fusermount -u /mnt/seagate/MOVIES
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=default.target
+```
+
+#### static ip (you won't need if you use tailscale)
 /etc/netplan/01-netcfg.yaml
 ```yaml
 network:
@@ -60,38 +127,13 @@ network:
           addresses: [8.8.8.8, 1.1.1.1]
 ```
 
-### automount ntfs-3g
-apt-get install ntfs-3g
-```
-sudo blkid (get UUID)
-```
-/etc/fstab
-```
-LABEL=writable  /        ext4   defaults        0 0
-LABEL=system-boot       /boot/firmware  vfat    defaults        0       1
-UUID=C4E216FCE216F302 /mnt/volume ntfs-3g async,big_writes,make-shared,noatime,nodiratime,nofail,uid=1000,gid=1000,umask=007 0 0
-```
-
-### overclock
-```bash
-sudo apt install neofetch gparted
-snap install rpi-imager
-```
-/boot/firmware/config.txt
-```
-over_voltage=6
-arm_freq=2147
-gpu_freq=700
-v3d_freq=750
-```
-
-### stop default dns for pihole (if needed)
+#### stop default dns for pihole (if needed)
 ```bash
 sudo systemctl disable systemd-resolved.service
 sudo systemctl stop systemd-resolved
 ```
 
-### install docker through snap
+#### if you installed docker through snap (please don't)
 ```bash
 sudo apt install snapd
 sudo snap install docker
@@ -135,7 +177,6 @@ sudo systemctl restart nfs-kernel-server
 ```
 
 ### nfs client
-
 ```
 sudo vim /etc/fstab
 
@@ -146,7 +187,6 @@ sudo vim /etc/fstab
 On MAC: Go to server: `nfs://100.86.73.62`
 
 ### hevc encoding
-
 ```
 HandBrakeCLI -i "$input_file" -o "$output_file" --preset-import-file "$custom_preset" --preset="HEVC"
 ```
