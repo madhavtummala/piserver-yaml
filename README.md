@@ -1,7 +1,7 @@
 #  <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px"> PiServer <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px">
 
-| Container Name           | Image                                             | Description                                      | Project Link                                  |
-|--------------------------|---------------------------------------------------|--------------------------------------------------|-----------------------------------------------|
+| Container Name           | Image                                             | Description                                      |
+|--------------------------|---------------------------------------------------|--------------------------------------------------|
 | **Essentials** |
 | [pihole/pihole](https://github.com/pi-hole/pi-hole)                   | pihole/pihole                                     | Local DNS server that can block ad traffic        |
 | [LinuxServer/endlessh](https://github.com/linuxserver/docker-endlessh)                 | lscr.io/linuxserver/endlessh                      | Honeypot for hackers on port 2222                 |
