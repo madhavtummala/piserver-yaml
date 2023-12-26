@@ -1,13 +1,6 @@
 #  <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px"> PiServer <img src="https://github.com/madhavtummala/piserver/assets/29799995/277c0e0d-3a7c-4f7d-a71f-3f532e77fa54" alt="Raspberry Pi Logo" width="20px">
 
-<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Pi-hole_vector_logo.svg/1200px-Pi-hole_vector_logo.svg.png" width="60px" alt="Pi-hole">
-<img src="https://raw.githubusercontent.com/dperson/openvpn-client/master/logo.png" width="80px" alt="OpenVPN Client">
-<img src="https://static-00.iconduck.com/assets.00/sonarr-icon-1024x1024-wkay604k.png" width="80px" alt="Sonarr">
-<img src="https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr.png" width="80px" alt="Radarr">
-<img src="https://avatars2.githubusercontent.com/u/6733935?v=3&s=200" width="80px" alt="Deluge">
-<img src="https://i.redd.it/uybguvnj1p821.png" width="80px" alt="Jellyfin">
-<img src="https://e1.pngegg.com/pngimages/261/453/png-clipart-macos-app-icons-plex-media-server.png" width="80px" alt="Plex">
-<img src="https://github.com/immich-app/immich/raw/main/design/immich-logo.svg" width="80px" alt="Immich">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Pi-hole_vector_logo.svg/1200px-Pi-hole_vector_logo.svg.png" width="60px" alt="Pi-hole"> <img src="https://raw.githubusercontent.com/dperson/openvpn-client/master/logo.png" width="80px" alt="OpenVPN Client"> <img src="https://static-00.iconduck.com/assets.00/sonarr-icon-1024x1024-wkay604k.png" width="80px" alt="Sonarr"> <img src="https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr.png" width="80px" alt="Radarr"> <img src="https://avatars2.githubusercontent.com/u/6733935?v=3&s=200" width="80px" alt="Deluge"> <img src="https://i.redd.it/uybguvnj1p821.png" width="80px" alt="Jellyfin"> <img src="https://e1.pngegg.com/pngimages/261/453/png-clipart-macos-app-icons-plex-media-server.png" width="80px" alt="Plex"> <img src="https://github.com/immich-app/immich/raw/main/design/immich-logo.svg" width="80px" alt="Immich">
 
 ---
 
