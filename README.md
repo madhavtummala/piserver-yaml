@@ -21,7 +21,7 @@
 | [LinuxServer/docker-jellyfin](https://github.com/linuxserver/docker-jellyfin)             | lscr.io/linuxserver/jellyfin                      | Open-source alternative to Plex                   |
 | **Immich Service** |
 | [immich-app/immich-server](https://github.com/immich-app/immich)                | ghcr.io/immich-app/immich-server                  | Main server for Immich application                |
-| [immich-app/immich-server](https://github.com/immich-app/immich)                | ghcr.io/immich-app/immich-server                  | Microservices for Immich application             |
+| [immich-app/immich-microservices](https://github.com/immich-app/immich)                | ghcr.io/immich-app/immich-server                  | Microservices for Immich application             |
 | [immich-app/immich-machine-learning](https://github.com/immich-app/immich-machine-learning) | ghcr.io/immich-app/immich-machine-learning        | Machine learning component for Immich             |
 | [Redis](https://redis.io/)                                                       | redis:6.2-alpine                                   | Redis service for caching                         |
 | [tensorchord/pgvecto-rs](https://github.com/tensorchord/pgvecto-rs)                  | tensorchord/pgvecto-rs:pg14-v0.1.11                | PostgreSQL database for Immich                    |
@@ -43,11 +43,17 @@
 | [p3terx/ariang](https://github.com/P3TERX/Aria2-Pro-Docker)                           | p3terx/ariang                                     | Aria2 backend                   |
 
 
-### Setup
+## Setup
 
-#### Install Ubuntu Server 20.04 (arm64) - [Instructions](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview)
+### Install Ubuntu Server 20.04 (arm64) - [Instructions](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview)
 
-####  Mounts - etc/fstab
+### Install Docker - [Instructions](https://docs.docker.com/engine/install/)
+
+### Install Docker-Compose (latest version) - [Instructions](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
+
+### Install Tailscale (vpn, remote access) - [Instructions](https://tailscale.com/kb/1031/install-linux)
+
+###  Setup MergerFS / Mounts - etc/fstab
 apt-get install ntfs-3g, try nfs3 (in-kernel) if you can
 ```
 sudo blkid (get UUID)
@@ -62,7 +68,7 @@ UUID=YYYYYYYYYYYYY /mnt/seagate ntfs-3g async,nobootwait,big_writes,noatime,nodi
 ```
 If you have a bigger array of disks, use `snapRAID` as well
 
-#### Overclock to upto 2.147GHz
+### Overclock to upto 2.147GHz
 ```bash
 sudo apt install neofetch gparted
 snap install rpi-imager
@@ -75,13 +81,12 @@ gpu_freq=700
 v3d_freq=750
 ```
 
+## Common Tips
 
-### Common Tips
-
-#### Powered USB with Raspi
+### Powered USB with Raspi
 Buy only from list [here](https://elinux.org/RPi_Powered_USB_Hubs). If not, cut the red wire (5v) of the usb hub wire that connects to raspi port to prevent backflow.
 
-#### rclone mounts (from gdrive) with a cache on hdds
+### rclone mounts (from gdrive) with a cache on hdds
 ```
 [Unit]
 Description=Landsraad Movies
@@ -115,7 +120,7 @@ RestartSec=15
 WantedBy=default.target
 ```
 
-#### static ip (you won't need if you use tailscale)
+### static ip (you won't need if you use tailscale)
 /etc/netplan/01-netcfg.yaml
 ```yaml
 network:
@@ -131,13 +136,13 @@ network:
           addresses: [8.8.8.8, 1.1.1.1]
 ```
 
-#### stop default dns for pihole (if needed)
+### stop default dns for pihole (if needed)
 ```bash
 sudo systemctl disable systemd-resolved.service
 sudo systemctl stop systemd-resolved
 ```
 
-#### if you installed docker through snap (please don't)
+### if you installed docker through snap (please don't)
 ```bash
 sudo apt install snapd
 sudo snap install docker
